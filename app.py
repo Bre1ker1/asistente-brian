@@ -1,16 +1,33 @@
 import os
 import requests
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from gtts import gTTS
 
 # ==========================================
-# DATOS DE BRIAN DIRECTOS DE TU COLA DE DATOS
+# DATOS DE BRIAN GUARDADOS Y CONFIGURADOS
 # ==========================================
 GROQ_API_KEY = "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"
-TELEGRAM_TOKEN = "8919816601:AAG4ibrZIjeAmSMP8l6BU8KWDoU3JSMRMu4"
+TELEGRAM_TOKEN = "8919816601:AAG4ibrZIjeAmSMP8168U8KWDoU3JSMRMu4"
 ID_PERMITIDO = 8299149065
 # ==========================================
+
+# --- SERVIDOR WEB FANTASMA PARA EVITAR EL CRASH DE RENDER ---
+class DummyServer(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(b"Servidor del Bot de Brian Activo de forma permanente.")
+
+def arrancar_servidor_web():
+    # Render usa el puerto 10000 por defecto para Web Services libres
+    puerto = int(os.environ.get("PORT", 10000))
+    server = HTTPServer(("0.0.0.0", puerto), DummyServer)
+    server.serve_forever()
+# ============================================================
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ID_PERMITIDO:
@@ -71,13 +88,16 @@ async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Error al generar audio: {e}")
 
 def main():
-    # En Render usamos la conexión estándar directa porque la red sí funciona libremente
+    # Iniciamos el servidor web en paralelo para que Render no tire error de puerto
+    t = threading.Thread(target=arrancar_servidor_web, daemon=True)
+    t.start()
+
     app = Application.builder().token(TELEGRAM_TOKEN).build()
     
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, responder))
     
-    print("Bot iniciado exitosamente en plataforma limpia.")
+    print("Bot iniciado exitosamente en Render.")
     app.run_polling(drop_pending_updates=True)
 
 if __name__ == '__main__':
