@@ -10,7 +10,7 @@ from gtts import gTTS
 # DATOS DE BRIAN GUARDADOS Y CONFIGURADOS
 # ==========================================
 GROQ_API_KEY = "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"
-TELEGRAM_TOKEN = "8919816601:AAG4ibrZIjeAmSMP8l6BU8KWDoU3JSMRMu4"
+TELEGRAM_TOKEN = "8919816601:AAG4ibrZIjeAmsMP0l6BU0KWDoU3JSMRMu4"
 ID_PERMITIDO = 8299149065
 # ==========================================
 
