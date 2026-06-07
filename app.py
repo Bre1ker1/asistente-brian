@@ -8,7 +8,7 @@ from gtts import gTTS
 # DATOS DE BRIAN DIRECTOS DE TU COLA DE DATOS
 # ==========================================
 GROQ_API_KEY = "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"
-TELEGRAM_TOKEN = "8919816601:AAG4ibrZIjeAmSMP8168U8KWDoU3JSMRMu4"
+TELEGRAM_TOKEN = "8919816601:AAG4ibrZIjeAmSMP8l6BU8KWDoU3JSMRMu4"
 ID_PERMITIDO = 8299149065
 # ==========================================
 
