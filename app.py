@@ -4,7 +4,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # Token de tu bot de Telegram
-TELEGRAM_TOKEN = "8191018801:AAG4IbzZ1jcAmSMF818U8KNDoU3J9MNM_4"
+TELEGRAM_TOKEN = "8919816601:AAGFEnjgQi_AllJkduuTVoqf5xlLuN22KT4"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("¡Hola Brian! Tu asistente en la nube está totalmente activo. ¿Qué hacemos hoy?")
